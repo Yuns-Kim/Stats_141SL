@@ -8,7 +8,7 @@ rm(list=ls())
 source("___f_funs.R")
 
 
-xbool_save_file <- TRUE
+xbool_save_file <- FALSE
 
 
 ############# two-sample test of mean -- unknown but equal variances -- t-test
@@ -47,7 +47,7 @@ mean(xtvals)
 
 hist(xtvals)
 
-############ equal variances
+############ equal variances -- note that even though population var is not known, we still measure effect size using it
 cohensd <- (xmu1 - xmu2) / xsigma1 ; cohensd
 
 noncent <- cohensd * sqrt( n1*n2 / (n1+n2) ) ; noncent ###  this value for non-centrality calculated in G*Power

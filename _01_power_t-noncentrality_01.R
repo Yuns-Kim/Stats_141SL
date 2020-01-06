@@ -2,12 +2,13 @@
 
 options(stringsAsFactors=FALSE, width=350)
 
+rm(list=ls())
 
 ####### make sure in working directory
 source("___f_funs.R")
 
 
-xbool_save_file <- TRUE
+xbool_save_file <- FALSE
 
 
 ############# one-sample test of mean -- unknown variance -- t-test
@@ -47,6 +48,7 @@ noncent <- cohensd * sqrt(n) ; noncent ### use this value for non-centrality par
 
 xalpha <- 0.01 #### here
 
+##### critical cut off under NULL
 tcut <-  - qt(xalpha, df=n-1) ; tcut
 
 xdf <- n - 1 ; xdf #### here

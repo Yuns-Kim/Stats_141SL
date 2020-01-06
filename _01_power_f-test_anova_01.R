@@ -8,10 +8,10 @@ rm(list=ls())
 source("___f_funs.R")
 
 
-xbool_save_file <- TRUE
+xbool_save_file <- FALSE
 
 
-############# simple two-way ANOVA F-test
+############# simple one-way ANOVA F-test
 ############# SIMULATION
 ############# try comparing this result with that using G*Power
 
@@ -20,7 +20,7 @@ set.seed(777)
 
 nn <- 300000
 
-n <- 100 ### must be divisible by total number of groups
+n <- 100 ### must be divisible by total number of groups -- even occupancy
 
 x1dom <- c("A", "B")
 x2dom <- c("c", "d")
@@ -45,6 +45,10 @@ xsigB <-
 sd(
 c(-H0ABdelta / 2, H0ABdelta / 2, 0)
 )
+xsigB
+
+##### same as
+##### sqrt( sum( c(-H0ABdelta / 2, H0ABdelta / 2)^2 ) / 2 )
 
 
 ff <- xsigB / xsigma ; ff ### f in G*Power
@@ -112,7 +116,7 @@ if(xbool_save_file) {
     png(file.path("~", "Desktop", "f_power_anova_example_01.png"), width=1500, height=480, pointsize=24)
 }
 par(mar=c(4,4,2,1))
-plot(xdom, df(xdom, df1=1, df2=98), main="ANOVA, 2 Groups, Sim Example", col="#AA0000", lwd=2, type="l", ylab="density", xlab="t")
+plot(xdom, df(xdom, df1=1, df2=98), main="ANOVA, 2 Groups, Sim Example", col="#AA0000", lwd=2, type="l", ylab="density", xlab="F")
 points(d, col="#0000AA", lwd=2, type="l")
 abline(v=fcut)
 if(xbool_save_file) { dev.off() }

@@ -7,10 +7,10 @@ options(stringsAsFactors=FALSE, width=350)
 source("___f_funs.R")
 
 
-xbool_save_file <- TRUE
+xbool_save_file <- FALSE
 
 
-############# one-sample test of mean -- unknown variance -- t-test
+############# one-sample test of mean -- known variance -- z-test
 ############# SIMULATION
 ############# try comparing this result with that using G*Power
 
@@ -36,7 +36,7 @@ for(ii in 1:nn) {
     
 }
 
-mean(xzvals)
+
 
 hist(xzvals)
 
@@ -44,12 +44,14 @@ cohensd <- (xmu - H0mu) / xsigma ; cohensd
 
 noncent <- cohensd * sqrt(n) ; noncent ### use this value for non-centrality parameter in G*Power
 
+### agrees with
+mean(xzvals)
+
 
 xalpha <- 0.01 #### here
 
 zcut <-  - qnorm(xalpha) ; zcut
 
-#### xdf <- n - 1 ; xdf #### here
 
 
 ###### empiric estimate of test power

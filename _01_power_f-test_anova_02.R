@@ -8,7 +8,7 @@ rm(list=ls())
 source("___f_funs.R")
 
 
-xbool_save_file <- TRUE
+xbool_save_file <- FALSE
 
 
 ############# simple two-way ANOVA F-test
@@ -39,7 +39,8 @@ xgrandsigma <- 1
 xsigma <- xgrandsigma
 
 H0ABdelta <- 1 / xsigma ##### 
-#H0ABdelta <- 0.5 / xsigma ##### the numerator is f in G*Power
+
+### H0ABdelta <- 0.5 / xsigma #####
 
 
 xsigB <-
@@ -104,7 +105,7 @@ mean(xfvals)
 hist(xfvals)
 
 
-xalpha <- 0.01 #### here
+xalpha <- 0.05 #### here
 
 fcut <-  qf(xalpha, df1=3, df2=96, lower.tail=FALSE) ; fcut
 
@@ -122,7 +123,7 @@ if(xbool_save_file) {
     png(file.path("~", "Desktop", "f_power_anova_example_02.png"), width=1500, height=480, pointsize=24)
 }
 par(mar=c(4,4,2,1))
-plot(xdom, df(xdom, df1=3, df2=96), main="ANOVA, 4 Groups, Sim Example", col="#AA0000", lwd=2, type="l", ylab="density", xlab="t")
+plot(xdom, df(xdom, df1=3, df2=96), main="ANOVA, 4 Groups, Sim Example", col="#AA0000", lwd=2, type="l", ylab="density", xlab="F")
 points(d, col="#0000AA", lwd=2, type="l")
 abline(v=fcut)
 if(xbool_save_file) { dev.off() }
