@@ -6,7 +6,7 @@ options(stringsAsFactors=FALSE, width=350)
 ####### make sure in working directory
 ##source("___f_funs.R")
 
-
+xbool_save_file <- FALSE
 
 ############# sim data
 
@@ -37,8 +37,8 @@ for(i in 1:nn) {
     maskC <- x %in% c("Control")
     maskTx <- x %in% c("Tx")
     
-        nC <- sum(maskC)
-        nTx <- sum(maskTx)
+    nC <- sum(maskC)
+    nTx <- sum(maskTx)
     
     y_null <- numeric(n)
     y_null[ maskC ] <- rnorm(nC, 0, xsigma)
@@ -61,15 +61,22 @@ for(i in 1:nn) {
     
 }
 
-par(mfrow=c(2,1))
-xlims <- range( c( xtvals_null, xtvals_true) )
-hist(xtvals_null, xlim=xlims)
-hist(xtvals_true, xlim=xlims)
-
 
 tcrit <- quantile(xtvals_null, 0.99) ; tcrit
 
-sum(xtvals_true > tcrit) / nn
+if(xbool_save_file) {
+    png(file.path("~", "Desktop", "t_power_trueRandomAssignment_01.png"), width=1000, height=1000, pointsize=24)
+}
+par(mfrow=c(2,1), mar=c(2.5,3,2,1))
+xlims <- range( c( xtvals_null, xtvals_true) )
+xlims <- c(-6, 8)
+hist(xtvals_null, xlim=xlims)
+abline(v=tcrit, col="#FF3333", lwd=3)
+hist(xtvals_true, xlim=xlims)
+abline(v=tcrit, col="#FF3333", lwd=3)
+if(xbool_save_file) { dev.off() }
+
+cat("True Random Assignment Power: ", sum(xtvals_true > tcrit) / nn, "\n")
 
 
 
@@ -112,15 +119,22 @@ for(i in 1:nn) {
     
 }
 
-par(mfrow=c(2,1))
-xlims <- range( c( xtvals_null, xtvals_true) )
-hist(xtvals_null, xlim=xlims)
-hist(xtvals_true, xlim=xlims)
-
-
 tcrit <- quantile(xtvals_null, 0.99) ; tcrit
 
-sum(xtvals_true > tcrit) / nn
+if(xbool_save_file) {
+    png(file.path("~", "Desktop", "t_power_semiRandomAssignment_01.png"), width=1000, height=1000, pointsize=24)
+}
+par(mfrow=c(2,1), mar=c(2.5,3,2,1))
+xlims <- range( c( xtvals_null, xtvals_true) )
+xlims <- c(-6, 8)
+hist(xtvals_null, xlim=xlims)
+abline(v=tcrit, col="#FF3333", lwd=3)
+hist(xtvals_true, xlim=xlims)
+abline(v=tcrit, col="#FF3333", lwd=3)
+if(xbool_save_file) { dev.off() }
+
+
+cat("'Semi' Random Assignment Power: ", sum(xtvals_true > tcrit) / nn, "\n")
 
 
 
